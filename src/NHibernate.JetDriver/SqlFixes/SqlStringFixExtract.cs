@@ -8,7 +8,6 @@ namespace NHibernate.JetDriver.SqlFixes
     /// </summary>
     public class SqlStringFixExtract : SqlStringFix
     {
-
         private static readonly string[] SearchPatterns ={
                                "extract\\s*\\(year\\s+from",
                                "extract\\s*\\(month\\s+from",
@@ -27,25 +26,23 @@ namespace NHibernate.JetDriver.SqlFixes
                                          };
         private static Regex[] _regExpressions;
 
+        static SqlStringFixExtract() {
+            _regExpressions = new Regex[SearchPatterns.Length];
+
+            for (int i = 0; i < SearchPatterns.Length; i++) {
+                _regExpressions[i] = new Regex(SearchPatterns[i],
+                RegexOptions.IgnoreCase
+                | RegexOptions.Singleline
+                | RegexOptions.CultureInvariant
+                );
+
+            }
+        }
+
+        public SqlStringFixExtract() { }
 
         public override string FixSql(string sql)
         {
-
-            if (_regExpressions == null)
-            {
-                _regExpressions = new Regex[SearchPatterns.Length];
-
-                for (int i = 0; i < SearchPatterns.Length; i++)
-                {
-                    _regExpressions[i] = new Regex(SearchPatterns[i],
-                    RegexOptions.IgnoreCase
-                    | RegexOptions.Singleline
-                    | RegexOptions.CultureInvariant
-                    );
-
-                }
-            }
-
             for (int i = 0; i < _regExpressions.Length; i++)
             {
                 if (_regExpressions[i].IsMatch(sql))
