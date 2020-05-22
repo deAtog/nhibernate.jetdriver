@@ -11,7 +11,7 @@ namespace NHibernate.JetDriver.Tests
         public ContextCultureSwitch(CultureInfo culture)
         {
             SnapshotCulture();
-            SetThreadCulture(culture, culture);
+            ISetThreadCulture(culture, culture);
         }
 
         private void SnapshotCulture()
@@ -20,7 +20,7 @@ namespace NHibernate.JetDriver.Tests
             _oldUiCulture = System.Threading.Thread.CurrentThread.CurrentUICulture;
         }
 
-        private static void SetThreadCulture(CultureInfo culture, CultureInfo uiCulture)
+        private static void ISetThreadCulture(CultureInfo culture, CultureInfo uiCulture)
         {
             System.Threading.Thread.CurrentThread.CurrentCulture = culture;
             System.Threading.Thread.CurrentThread.CurrentUICulture = uiCulture;
@@ -33,7 +33,7 @@ namespace NHibernate.JetDriver.Tests
 
         public void Dispose()
         {
-            SetThreadCulture(_oldCulture, _oldUiCulture);
+            ISetThreadCulture(_oldCulture, _oldUiCulture);
         }
     }
 }

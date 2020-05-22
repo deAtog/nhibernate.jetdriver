@@ -1,6 +1,6 @@
 using System;
 using System.Collections;
-using Iesi.Collections;
+using System.Collections.Generic;
 
 namespace NHibernate.JetDriver.Tests.ExtraLazy
 {
@@ -9,8 +9,8 @@ namespace NHibernate.JetDriver.Tests.ExtraLazy
         private string name;
         private string _passwordValue;
         private IDictionary session = new Hashtable();
-        private ISet documents = new HashedSet();
-        private ISet photos = new HashedSet();
+        private ISet<Document> documents = new HashSet<Document>();
+        private ISet<Photo> photos = new HashSet<Photo>();
         protected User() {}
         public User(string name, string passwordValue)
         {
@@ -36,14 +36,14 @@ namespace NHibernate.JetDriver.Tests.ExtraLazy
             set { session = value; }
         }
 
-        public virtual ISet Documents
+        public virtual ISet<Document> Documents
         {
             get { return documents; }
             set { documents = value; }
         }
 
 
-        public virtual ISet Photos
+        public virtual ISet<Photo> Photos
         {
             get { return photos; }
             set { photos = value; }

@@ -27,29 +27,29 @@ namespace NHibernate.JetDriver.Tests
                     Layout = new PatternLayout(PatternLayout.DetailConversionPattern),
                 });
 
-                SetLoggerLevel("NHibernate", Level.Info);
-                SetLoggerLevel("NHibernate.SQL", Level.Debug);
+                ISetLoggerLevel("NHibernate", Level.Info);
+                ISetLoggerLevel("NHibernate.SQL", Level.Debug);
 
                 _configured = true;
             }
         }
 
-        public static void SetLoggerLevel(System.Type type, Level level)
+        public static void ISetLoggerLevel(System.Type type, Level level)
         {
             ILog log = LogManager.GetLogger(type);
-            SetLoggerLevel(log, level);
+            ISetLoggerLevel(log, level);
         }
-        public static void SetLoggerLevel(string loggerName, Level level)
+        public static void ISetLoggerLevel(string loggerName, Level level)
         {
             ILog log = LogManager.GetLogger(loggerName);
-            SetLoggerLevel(log, level);
+            ISetLoggerLevel(log, level);
         }
-        public static void SetLoggerLevel(ILog logger, Level level)
+        public static void ISetLoggerLevel(ILog logger, Level level)
         {
             Logger hierarchyLogger = (Logger)logger.Logger;
-            SetLoggerLevel(hierarchyLogger, level);
+            ISetLoggerLevel(hierarchyLogger, level);
         }
-        public static void SetLoggerLevel(Logger hierarchyLogger, Level level)
+        public static void ISetLoggerLevel(Logger hierarchyLogger, Level level)
         {
             hierarchyLogger.Level = level;
         }
