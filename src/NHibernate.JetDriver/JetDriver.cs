@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -20,7 +21,7 @@ namespace NHibernate.JetDriver
     /// </summary>
     public class JetDriver : OleDbDriver
     {
-        private static readonly IInternalLogger logger = LoggerProvider.LoggerFor(typeof(JetDriver));
+        private static readonly INHibernateLogger logger = NHibernateLogger.For(typeof(JetDriver));
 
         private const string FromClause = " from ";
         private const string WhereClause = " where ";
@@ -45,7 +46,7 @@ namespace NHibernate.JetDriver
         /// <param name="sqlString"></param>
         /// <param name="parameterTypes"></param>
         /// <returns></returns>
-        public override IDbCommand GenerateCommand(CommandType type, SqlString sqlString, SqlType[] parameterTypes)
+        public override DbCommand GenerateCommand(CommandType type, SqlString sqlString, SqlType[] parameterTypes)
         {
             var parametersOriginal = new List<Parameter>();
 
@@ -181,9 +182,11 @@ namespace NHibernate.JetDriver
             var fromIndex = sql.IndexOf(joinClause, startIndex, StringComparison.InvariantCultureIgnoreCase);
             while (fromIndex > 0)
             {
-                var joinNode = new JoinNode();
-                joinNode.Position = fromIndex;
-                joinNode.Name = joinClause;
+                var joinNode = new JoinNode
+                {
+                    Position = fromIndex,
+                    Name = joinClause
+                };
                 joinTags.Add(joinNode);
                 startIndex = fromIndex + 1;
                 fromIndex = sql.IndexOf(joinClause, startIndex, StringComparison.InvariantCultureIgnoreCase);
@@ -221,7 +224,7 @@ namespace NHibernate.JetDriver
 
                     if (param == null)
                     {
-                        logger.WarnFormat("No parameter found to match position {0}. Using @p{0}", paramPos);
+                        logger.Warn("No parameter found to match position {0}. Using @p{0}", paramPos);
                         sqlBuilder.Add(string.Format("@p{0}", paramPos));
                     }
                     else
@@ -306,7 +309,7 @@ namespace NHibernate.JetDriver
 
 
         /// <summary></summary>
-        public override IDbConnection CreateConnection()
+        public override DbConnection CreateConnection()
         {
             return new JetDbConnection();
         }
@@ -314,7 +317,7 @@ namespace NHibernate.JetDriver
         /// <summary>
         /// We have to have a special db command type to support conversion of data types, because Access is weird.
         /// </summary>
-        public override IDbCommand CreateCommand()
+        public override DbCommand CreateCommand()
         {
             return new JetDbCommand();
         }

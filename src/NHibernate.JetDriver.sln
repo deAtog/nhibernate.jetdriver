@@ -1,9 +1,11 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NHibernate.JetDriver-2.0", "NHibernate.JetDriver\NHibernate.JetDriver-2.0.csproj", "{3905D37C-CA49-4C13-99A4-4D815EFCAA56}"
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30104.148
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NHibernate.JetDriver-2.0", "NHibernate.JetDriver\NHibernate.JetDriver-2.0.csproj", "{3905D37C-CA49-4C13-99A4-4D815EFCAA56}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NHibernate.JetDriver.Tests", "NHibernate.JetDriver.Tests\NHibernate.JetDriver.Tests.csproj", "{408B5045-9B30-44BC-B10B-D2E2F17BC4FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NHibernate.JetDriver.Tests", "NHibernate.JetDriver.Tests\NHibernate.JetDriver.Tests.csproj", "{408B5045-9B30-44BC-B10B-D2E2F17BC4FE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,5 +24,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {ED1322A8-0814-4BAE-B4BC-4DB6FA4BF06F}
 	EndGlobalSection
 EndGlobal

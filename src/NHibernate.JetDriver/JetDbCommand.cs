@@ -24,7 +24,7 @@ namespace NHibernate.JetDriver
     /// </summary>
     public sealed class JetDbCommand : DbCommand
     {
-        private static readonly IInternalLogger Log = LoggerProvider.LoggerFor(typeof(JetDbCommand));
+        private static readonly INHibernateLogger Log = NHibernateLogger.For(typeof(JetDbCommand));
 
         private JetDbConnection _connection;
         private JetDbTransaction _transaction;
@@ -130,7 +130,7 @@ namespace NHibernate.JetDriver
 
             p.DbType = DbType.Int32;
             p.Value = normalizedLongValue;
-            Log.DebugFormat("Changing Int64 parameter value to [{0}] as Int32, to avoid DB confusion", normalizedLongValue);
+            Log.Debug("Changing Int64 parameter value to [{0}] as Int32, to avoid DB confusion", normalizedLongValue);
         }
 
         private void FixDecimalValue(IDataParameter p)
@@ -149,7 +149,7 @@ namespace NHibernate.JetDriver
         private string GetNormalizedDateValue(DateTime date)
         {
             string normalizedDateValue = date.ToString("yyyy/MM/dd HH:mm:ss", CultureInfo.InvariantCulture);
-            Log.DebugFormat("Changing datetime parameter value to [{0}] as string, to avoid DB confusion", normalizedDateValue);
+            Log.Debug("Changing datetime parameter value to [{0}] as string, to avoid DB confusion", normalizedDateValue);
 
             return normalizedDateValue;
         }
@@ -189,7 +189,7 @@ namespace NHibernate.JetDriver
                     var param = Command.Parameters[paramName];
                     var paramValue = param.Value.ToString();
                     text = text.Replace(m.Value, "top " + paramValue);
-                    Log.DebugFormat("Removed parameter {0} in favor of SELECT TOP <Number>: {1}", paramName, text);
+                    Log.Debug("Removed parameter {name} in favor of SELECT TOP <Number>: {1}", paramName, text);
 
                     Command.Parameters.Remove(param);
                 }

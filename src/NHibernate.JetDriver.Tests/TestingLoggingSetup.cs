@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Reflection;
 using log4net;
 using log4net.Appender;
 using log4net.Config;
 using log4net.Core;
 using log4net.Layout;
+using log4net.Repository;
 using log4net.Repository.Hierarchy;
 
 namespace NHibernate.JetDriver.Tests
@@ -22,7 +24,8 @@ namespace NHibernate.JetDriver.Tests
                     return;
                 }
 
-                BasicConfigurator.Configure(new TraceAppender()
+                ILoggerRepository repository = LogManager.GetRepository(Assembly.GetExecutingAssembly());
+                BasicConfigurator.Configure(repository, new TraceAppender()
                 {
                     Layout = new PatternLayout(PatternLayout.DetailConversionPattern),
                 });
@@ -41,7 +44,7 @@ namespace NHibernate.JetDriver.Tests
         }
         public static void ISetLoggerLevel(string loggerName, Level level)
         {
-            ILog log = LogManager.GetLogger(loggerName);
+            ILog log = LogManager.GetLogger(Assembly.GetExecutingAssembly(), loggerName);
             ISetLoggerLevel(log, level);
         }
         public static void ISetLoggerLevel(ILog logger, Level level)

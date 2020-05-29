@@ -99,34 +99,31 @@ namespace NHibernate.JetDriver.Tests
         [Test]
         public void NHCD32_Two_Pass_Parameters_Of_Type_String_Are_Converted_To_Invariant_Date()
         {
-            using (new ContextCultureSwitch(new CultureInfo("fa-ir")))
-            {
-                JetDbCommand cmd = new JetDbCommand("SELECT * FROM [Employees] WHERE EmploymentDate > @DateParam");
-                OleDbParameter param = (OleDbParameter) cmd.CreateParameter();
-                string dateString = "05/27/2009 02:16:32 ب.ظ.";
+            JetDbCommand cmd = new JetDbCommand("SELECT * FROM [Employees] WHERE EmploymentDate > @DateParam");
+            OleDbParameter param = (OleDbParameter)cmd.CreateParameter();
+            string dateString = "05/27/2009 02:16:32 PM";
 
-                param.DbType = DbType.DateTime;
-                param.ParameterName = "@DateParam";
-                param.SourceColumn = "EmploymentDate";
-                param.Value = DateTime.Parse(dateString, CultureInfo.CurrentCulture);
+            param.DbType = DbType.DateTime;
+            param.ParameterName = "@DateParam";
+            param.SourceColumn = "EmploymentDate";
+            param.Value = DateTime.Parse(dateString);
 
-                cmd.Parameters.Add(param);
+            cmd.Parameters.Add(param);
 
-                //First pass
-                cmd.GetType()
-                    .GetMethod("CheckParameters", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.InvokeMethod)
-                    .Invoke(cmd, null);
+            //First pass
+            cmd.GetType()
+                .GetMethod("CheckParameters", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.InvokeMethod)
+                .Invoke(cmd, null);
 
-                //Second pass, dbtype is converted to string
-                cmd.GetType()
-                    .GetMethod("CheckParameters", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.InvokeMethod)
-                    .Invoke(cmd, null);
+            //Second pass, dbtype is converted to string
+            cmd.GetType()
+                .GetMethod("CheckParameters", BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.InvokeMethod)
+                .Invoke(cmd, null);
 
-                var parameter = (IDataParameter)cmd.Parameters[0];
+            var parameter = (IDataParameter)cmd.Parameters[0];
 
-                Assert.That(parameter.Value, Is.TypeOf(typeof(string)));
-                Assert.That(parameter.Value, Is.EqualTo("2009/05/27 14:16:32"));
-            }
+            Assert.That(parameter.Value, Is.TypeOf(typeof(string)));
+            Assert.That(parameter.Value, Is.EqualTo("2009/05/27 14:16:32"));
         }
     }
 }

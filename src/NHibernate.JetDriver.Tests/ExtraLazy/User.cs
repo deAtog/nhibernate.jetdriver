@@ -8,7 +8,7 @@ namespace NHibernate.JetDriver.Tests.ExtraLazy
     {
         private string name;
         private string _passwordValue;
-        private IDictionary session = new Hashtable();
+        private IDictionary<string, SessionAttribute> session = new Dictionary<string, SessionAttribute>();
         private ISet<Document> documents = new HashSet<Document>();
         private ISet<Photo> photos = new HashSet<Photo>();
         protected User() {}
@@ -30,7 +30,7 @@ namespace NHibernate.JetDriver.Tests.ExtraLazy
             set { _passwordValue = value; }
         }
 
-        public virtual IDictionary Session
+        public virtual IDictionary<string, SessionAttribute> Session
         {
             get { return session; }
             set { session = value; }
