@@ -35,7 +35,6 @@
     <Product>NHibernate.JetDriver</Product>
     <Description>The Jet driver and dialect for NHibernate 3.2.0.4000.</Description>
     <Copyright>Licensed under LGPL.</Copyright>
-    <Version>3.2.0.4000</Version>
     <AssemblyVersion>3.2.0.4000</AssemblyVersion>
     <FileVersion>3.2.0.4000</FileVersion>
     <FileAlignment>4096</FileAlignment>
@@ -47,6 +46,12 @@
     <ConfigurationOverrideFile />
     <NoStdLib>false</NoStdLib>
     <DocumentationFile />
+    <PackageProjectUrl></PackageProjectUrl>
+    <RepositoryUrl>https://github.com/deAtog/nhibernate.jetdriver</RepositoryUrl>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <VersionPrefix>3.2.1</VersionPrefix>
+    <VersionSuffix>alpha-1</VersionSuffix>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="log4net" Version="2.0.8" />
