@@ -33,7 +33,7 @@
     <AssemblyTitle>NHibernate.JetDriver</AssemblyTitle>
     <Company>NHibernate.org</Company>
     <Product>NHibernate.JetDriver</Product>
-    <Description>The Jet driver and dialect for NHibernate 3.2.0.4000.</Description>
+    <Description>The Jet driver and dialect for NHibernate 5.3.0.</Description>
     <Copyright>Licensed under LGPL.</Copyright>
     <AssemblyVersion>3.2.0.4000</AssemblyVersion>
     <FileVersion>3.2.0.4000</FileVersion>
@@ -52,6 +52,7 @@
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <VersionPrefix>3.2.1</VersionPrefix>
     <VersionSuffix>alpha-1</VersionSuffix>
+    <PackageLicenseExpression>LGPL-2.0-or-later</PackageLicenseExpression>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="log4net" Version="2.0.8" />
