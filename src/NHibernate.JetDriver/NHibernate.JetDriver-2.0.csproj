@@ -51,11 +51,10 @@
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <VersionPrefix>3.2.1</VersionPrefix>
-    <VersionSuffix>alpha-1</VersionSuffix>
+    <VersionSuffix>alpha-2</VersionSuffix>
     <PackageLicenseExpression>LGPL-2.0-or-later</PackageLicenseExpression>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="log4net" Version="2.0.8" />
     <PackageReference Include="NHibernate" Version="5.3.0-dev" />
     <PackageReference Include="System.Data.OleDb" Version="4.7.1" />
   </ItemGroup>
