@@ -31,40 +31,36 @@ namespace NHibernate.JetDriver
 
         private static readonly Dictionary<string, string> JetConversionFunctions = new Dictionary<string, string>();
 
-        private SqlString GetJetConvertionFunction(Dialect.Dialect dialect, string sqlType, object arg)
+        protected override SqlString Render(object expression, string sqlType, ISessionFactoryImplementor factory)
         {
             sqlType = sqlType.ToUpper();
 
             if (JetConversionFunctions.ContainsKey(sqlType))
             {
                 string functionname = JetConversionFunctions[sqlType];
-                var sqlArg = arg.ToString();
+                var sqlArg = expression.ToString();
 
                 if (sqlArg.IndexOf("?") >= 0)
                 {
-                    return new SqlString(functionname, "(", arg, ")");
+                    return new SqlString(functionname, "(", expression, ")");
                 }
 
-                return new SqlString("iff", "(", "ISNULL", "(", arg, ")", ",", "NULL", ",", functionname, "(", arg, ")", ")");
+                return new SqlString("iif", "(", "ISNULL", "(", expression, ")", ",", "NULL", ",", functionname, "(", expression, ")", ")");
             }
             else if (sqlType.Contains("TEXT") || sqlType.Contains("CHAR"))
             {
-                return new SqlString("CStr", "(", arg, ")");
+                return new SqlString("CStr", "(", expression, ")");
             }
             else if (sqlType == "BIT")
             {
+                Dialect.Dialect dialect = factory.Dialect;
                 string true_value = dialect.ToBooleanValueString(true);
                 string false_value = dialect.ToBooleanValueString(false);
 
-                return new SqlString("iif", "(", arg, "<>", "0", ",", true_value, ",", false_value, ")");
+                return new SqlString("iif", "(", expression, "<>", "0", ",", true_value, ",", false_value, ")");
             }
 
-            return new SqlString("(", arg, ")");
-        }
-
-        protected override SqlString Render(IList args, string sqlType, ISessionFactoryImplementor factory)
-        {
-            return GetJetConvertionFunction(factory.Dialect, sqlType, args[0]);
+            return new SqlString("(", expression, ")");
         }
     }
 }
