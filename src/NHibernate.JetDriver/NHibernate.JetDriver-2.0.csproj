@@ -51,7 +51,7 @@
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <VersionPrefix>3.2.1</VersionPrefix>
-    <VersionSuffix>alpha-2</VersionSuffix>
+    <VersionSuffix></VersionSuffix>
     <PackageLicenseExpression>LGPL-2.0-or-later</PackageLicenseExpression>
   </PropertyGroup>
   <ItemGroup>
